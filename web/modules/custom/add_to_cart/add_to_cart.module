@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Implements hook_page_attachments().
+ */
+function add_to_cart_page_attachments(array &$attachments) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  if ($route_name === 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof \Drupal\node\NodeInterface && $node->bundle() === 'products') {
+      $attachments['#attached']['library'][] = 'add_to_cart/cart_behavior';
+    }
+    
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function add_to_cart_preprocess_node(&$variables) {
+    if ($variables['node']->getType() === 'products') {
+        if (\Drupal::currentUser()->isAuthenticated()) {
+      $node_id = $variables['node']->id();
+      $add_to_cart_url = \Drupal\Core\Url::fromRoute('add_to_cart.add', ['node' => $node_id]);
+      if (isset($variables['content']['buy_now_link'])) {
+        $variables['content']['add_to_cart_button'] = [
+          '#type' => 'link',
+          '#title' => t('Add to Cart'),
+          '#url' => $add_to_cart_url,
+          '#attributes' => ['class' => ['button', 'add-to-cart-button']],
+          '#weight' => 20,
+        ];
+      } else {
+        $variables['content']['add_to_cart_button'] = [
+          '#type' => 'link',
+          '#title' => t('Add to Cart'),
+          '#url' => $add_to_cart_url,
+          '#attributes' => ['class' => ['button', 'add-to-cart-button']],
+        ];
+      }
+      $variables['content']['cart_icon_message'] = [
+        '#markup' => '<div class="cart-icon-message"></div>',
+      ];
+    }
+    }
+  }

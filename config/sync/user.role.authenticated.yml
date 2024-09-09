@@ -7,7 +7,6 @@ dependencies:
     - filter.format.webform_default
     - node.type.products
   module:
-    - buy_product
     - comment
     - contact
     - file
@@ -27,7 +26,6 @@ permissions:
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
-  - 'buy product'
   - 'delete own files'
   - 'post comments'
   - 'search content'
