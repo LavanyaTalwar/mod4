@@ -1,0 +1,7 @@
+name: 'Add to Cart'
+type: module
+description: 'Adds an Add to Cart button to product pages.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:node

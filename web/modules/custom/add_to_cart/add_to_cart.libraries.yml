@@ -1,0 +1,7 @@
+cart_behavior:
+  version: 1.x
+  js:
+    js/cart_behavior.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

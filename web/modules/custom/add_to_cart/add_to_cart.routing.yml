@@ -1,0 +1,8 @@
+add_to_cart.add:
+  path: '/cart/add/{node}'
+  defaults:
+    _controller: '\Drupal\add_to_cart\Controller\CartController::add'
+    _title: 'Add to Cart'
+  requirements:
+    _permission: 'access content'
+    node: \d+
